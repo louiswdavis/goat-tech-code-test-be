@@ -6,11 +6,12 @@
 #  description :text
 #  name        :string
 #  status      :integer          default("active")
+#  tasks_count :integer          default(0)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
 class Campaign < ApplicationRecord
-  # has_many :tasks, dependent: :destroy # TODO once added
+  has_many :tasks, dependent: :destroy
 
   validates_presence_of :name
   validates_length_of :name, maximum: 100
