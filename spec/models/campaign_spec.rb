@@ -39,7 +39,7 @@ RSpec.describe Campaign, type: :model do
   describe 'enums' do
     # my own check
     specify(:aggregate_failures) do
-      is_expected.to define_enum_for(:field).with_values({ active: 0, completed: 1, archived: 2 })
+      is_expected.to define_enum_for(:status).with_values({ active: 0, completed: 1, archived: 2 })
     end
 
     it 'has status enum' do
