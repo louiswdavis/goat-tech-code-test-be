@@ -1,3 +1,21 @@
+# == Schema Information
+#
+# Table name: tasks
+#
+#  id          :bigint           not null, primary key
+#  description :text
+#  due_date    :datetime
+#  priority    :integer          default("medium"), not null
+#  status      :integer          default("todo"), not null
+#  title       :string           not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  campaign_id :bigint
+#
+# Indexes
+#
+#  index_tasks_on_campaign_id  (campaign_id)
+#
 require 'rails_helper'
 
 # These tests will fail until you create the Task model
