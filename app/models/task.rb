@@ -17,7 +17,7 @@
 #  index_tasks_on_campaign_id  (campaign_id)
 #
 class Task < ApplicationRecord
-  belongs_to :campaign, counter_cache: true
+  belongs_to :campaign, counter_cache: :task_count # counter_cache could also just be a method but this is my familiar approach
 
   validates_presence_of :title
   validates_length_of :title, maximum: 200
