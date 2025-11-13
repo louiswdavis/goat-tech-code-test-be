@@ -11,7 +11,7 @@
 #  updated_at  :datetime         not null
 #
 FactoryBot.define do
-  factory :campaigns do
+  factory :campaign do
     sequence(:name) { |n| "Burger Town - Mega Burger Launch #{n}" }
     description { "Launching the Mega Burger at Burger Town" }
   end

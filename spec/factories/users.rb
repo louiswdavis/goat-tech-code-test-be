@@ -13,7 +13,7 @@
 #  index_users_on_email  (email) UNIQUE
 #
 FactoryBot.define do
-  factory :users do
+  factory :user do
     sequence(:email) { |n| "account#{n}@goat.com" }
     sequence(:name) { |n| "Joe Bloggs#{n}" }
   end
