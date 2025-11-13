@@ -127,3 +127,9 @@ Task.create!(
 )
 
 puts "\n✅ Seed data created successfully!"
+
+# my own checks
+
+puts "Seeded: Campaign(s) (#{Campaign.count})"
+puts "Seeded: User(s) (#{User.count})"
+puts "Seeded: Task(s) (#{Task.count})"
