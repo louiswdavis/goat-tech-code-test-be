@@ -20,7 +20,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_13_195333) do
     t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "tasks_count", default: 0
+    t.integer "task_count", default: 0
   end
 
   create_table "tasks", force: :cascade do |t|

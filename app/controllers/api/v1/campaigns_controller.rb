@@ -4,24 +4,22 @@ module Api
       before_action :set_campaign, only: [:show, :update, :destroy]
 
       def index
-        # BUG 8:
         campaigns = if params[:status]
-                      Campaign.find_by(status: params[:status])
+                      Campaign.where(status: params[:status])
                     else
                       Campaign.all
                     end
 
-        # BUG 7:
+        # if BUG 7 was task_count, this is handled via counter_cache column
         render json: { campaigns: campaigns }
       end
 
       def show
-        # BUG 6:
-        render json: { campaign: @campaign }
+        render json: { campaign: @campaign.as_json(include: :tasks) }
       end
 
       def create
-        campaign = Campaign.new(campaign_params)
+        campaign = Campaign.new(create_params)
 
         if campaign.save
           render json: { campaign: campaign }, status: :created
@@ -31,7 +29,7 @@ module Api
       end
 
       def update
-        if @campaign.update(campaign_params)
+        if @campaign.update(update_params)
           render json: { campaign: @campaign }
         else
           render json: { errors: @campaign.errors }, status: :unprocessable_entity
@@ -51,9 +49,12 @@ module Api
         render json: { error: 'Campaign not found' }, status: :not_found
       end
 
-      def campaign_params
-        # BUG 5:
+      def create_params
         params.require(:campaign).permit(:name, :description)
+      end
+      
+      def update_params
+        params.require(:campaign).permit(:name, :description, :status)
       end
     end
   end
