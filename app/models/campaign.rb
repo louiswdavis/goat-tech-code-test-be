@@ -1,11 +1,19 @@
+# == Schema Information
+#
+# Table name: campaigns
+#
+#  id          :bigint           not null, primary key
+#  description :text
+#  name        :string
+#  status      :integer          default("active")
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
 class Campaign < ApplicationRecord
-  # BUG 1:
-  validates :description, presence: true
-  validates :name, length: { maximum: 100 }
+  # has_many :tasks, dependent: :destroy # TODO once added
 
-  # BUG 2:
-  has_one :tasks
+  validates_presence_of :name
+  validates_length_of :name, maximum: 100
 
-  # BUG 3:
-  enum status: [:active, :completed, :archived]
+  enum status: { active: 0, completed: 1, archived: 2 }
 end
