@@ -6,6 +6,7 @@
 #  description :text
 #  name        :string
 #  status      :integer          default("active")
+#  tasks_count :integer          default(0)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
@@ -14,6 +15,7 @@ require 'rails_helper'
 RSpec.describe Campaign, type: :model do
   describe 'validations' do
     # my own check
+    subject { FactoryBot.build(:campaign) }
     specify(:aggregate_failures) do
       is_expected.to validate_presence_of(:name)
       is_expected.to validate_length_of(:name).is_at_most(100)

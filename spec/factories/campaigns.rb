@@ -10,11 +10,9 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
-class Campaign < ApplicationRecord
-  has_many :tasks, dependent: :destroy
-
-  validates_presence_of :name
-  validates_length_of :name, maximum: 100
-
-  enum status: { active: 0, completed: 1, archived: 2 }
+FactoryBot.define do
+  factory :campaign do
+    sequence(:name) { |n| "Burger Town - Mega Burger Launch #{n}" }
+    description { "Launching the Mega Burger at Burger Town" }
+  end
 end

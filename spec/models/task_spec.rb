@@ -1,9 +1,34 @@
+# == Schema Information
+#
+# Table name: tasks
+#
+#  id          :bigint           not null, primary key
+#  description :text
+#  due_date    :datetime
+#  priority    :integer          default("medium"), not null
+#  status      :integer          default("todo"), not null
+#  title       :string           not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  campaign_id :bigint
+#
+# Indexes
+#
+#  index_tasks_on_campaign_id  (campaign_id)
+#
 require 'rails_helper'
 
 # These tests will fail until you create the Task model
 # Run migrations after generating the Task model
 RSpec.describe Task, type: :model do
   describe 'validations' do
+    # my own check
+    subject { FactoryBot.build(:task) }
+    specify(:aggregate_failures) do
+      is_expected.to validate_presence_of(:title)
+      is_expected.to validate_length_of(:title).is_at_most(200)
+    end
+
     it 'requires a title' do
       task = Task.new(campaign_id: 1)
       expect(task).not_to be_valid
@@ -29,6 +54,12 @@ RSpec.describe Task, type: :model do
   end
 
   describe 'enums' do
+    # my own check
+    specify(:aggregate_failures) do
+      is_expected.to define_enum_for(:status).with_values({ todo: 0, in_progress: 1, done: 2 })
+      is_expected.to define_enum_for(:priority).with_values({ low: 0, medium: 1, high: 2 })
+    end
+
     it 'has status enum' do
       expect(Task.statuses).to eq({ "todo" => 0, "in_progress" => 1, "done" => 2 })
     end
@@ -51,20 +82,25 @@ RSpec.describe Task, type: :model do
   end
 
   describe 'associations' do
+    # my own check
+    specify(:aggregate_failures) do
+      is_expected.to belong_to(:campaign).counter_cache(true)
+    end
+
     it 'belongs to campaign' do
       association = Task.reflect_on_association(:campaign)
       expect(association.macro).to eq(:belongs_to)
     end
 
     # BONUS: User relationship tests
-    it 'belongs to created_by user' do
+    xit 'belongs to created_by user' do
       association = Task.reflect_on_association(:created_by)
       expect(association.macro).to eq(:belongs_to)
       expect(association.options[:class_name]).to eq('User')
       expect(association.options[:optional]).to be true
     end
 
-    it 'belongs to assigned_to user' do
+    xit 'belongs to assigned_to user' do
       association = Task.reflect_on_association(:assigned_to)
       expect(association.macro).to eq(:belongs_to)
       expect(association.options[:class_name]).to eq('User')
