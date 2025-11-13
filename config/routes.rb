@@ -7,7 +7,13 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :campaigns
+      resources :campaigns do
+        scope module: :campaigns do
+          resources :tasks, only: [:index, :create]
+        end
+      end
+
+      resources :tasks, only: [:show, :update, :destroy]
       resources :users
     end
   end
