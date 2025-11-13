@@ -37,19 +37,28 @@ gem "rack-cors"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", platforms: %i[ mri windows ]
+  # gem "debug", platforms: %i[ mri windows ]
   gem "rspec-rails", "~> 6.1.0"
   gem "factory_bot_rails"
   gem "faker"
+
+  # A simple to use and feature rich debugger for Ruby [https://github.com/deivid-rodriguez/byebug]
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw, :windows]
 end
 
 group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+
+  # Add a comment summarising the current schema to the top of each model [https://github.com/drwl/annotaterb]
+  gem 'annotaterb'
 end
 
 group :test do
   gem "shoulda-matchers", "~> 6.0"
   gem "database_cleaner-active_record"
+
+  # Matchers to test before, after and around hooks [https://github.com/jdliss/shoulda-callback-matchers]
+  gem 'shoulda-callback-matchers'
 end
 
