@@ -27,6 +27,8 @@
 #
 class Task < ApplicationRecord
   belongs_to :campaign, counter_cache: :task_count # counter_cache could also just be a method but this is my familiar approach
+  belongs_to :created_by, class_name: 'User', foreign_key: 'created_by_id', optional: true
+  belongs_to :assigned_to, class_name: 'User', foreign_key: 'assigned_to_id', optional: true
 
   validates_presence_of :title
   validates_length_of :title, maximum: 200

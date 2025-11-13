@@ -102,14 +102,14 @@ RSpec.describe Task, type: :model do
     end
 
     # BONUS: User relationship tests
-    xit 'belongs to created_by user' do
+    it 'belongs to created_by user' do
       association = Task.reflect_on_association(:created_by)
       expect(association.macro).to eq(:belongs_to)
       expect(association.options[:class_name]).to eq('User')
       expect(association.options[:optional]).to be true
     end
 
-    xit 'belongs to assigned_to user' do
+    it 'belongs to assigned_to user' do
       association = Task.reflect_on_association(:assigned_to)
       expect(association.macro).to eq(:belongs_to)
       expect(association.options[:class_name]).to eq('User')
