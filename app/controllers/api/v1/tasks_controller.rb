@@ -3,6 +3,11 @@ module Api
     class TasksController < ApplicationController
       before_action :set_task, only: [:show, :update, :destroy]
 
+      # extra action for FE assement
+      def index
+        render json: { tasks: Task.all }
+      end
+
       def show
         render json: { task: @task }
       end

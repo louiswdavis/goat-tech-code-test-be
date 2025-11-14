@@ -13,7 +13,7 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :tasks, only: [:show, :update, :destroy]
+      resources :tasks, only: [:index, :show, :update, :destroy]
       resources :users
     end
   end
