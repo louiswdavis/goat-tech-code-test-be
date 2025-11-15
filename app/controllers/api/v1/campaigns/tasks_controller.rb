@@ -12,6 +12,16 @@ module Api
                     @campaign.tasks
                   end
 
+          tasks = tasks.includes(:created_by, :assigned_to)
+                       .order(status: :desc, priority: :desc, due_date: :desc)
+          
+          tasks.map do |task| 
+            task.attributes.merge(
+              created_by_name: task.created_by&.name,
+              assigned_to_name: task.assigned_to&.name
+            )
+          end
+
           render json: { tasks: tasks }
         end
 
