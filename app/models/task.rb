@@ -33,6 +33,8 @@ class Task < ApplicationRecord
   validates_presence_of :title
   validates_length_of :title, maximum: 200
 
+  validates_presence_of :status, :priority # extra validations
+
   enum status: { todo: 0, in_progress: 1, done: 2 }
   enum priority: { low: 0, medium: 1, high: 2 }
 end

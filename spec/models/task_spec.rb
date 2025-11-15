@@ -36,6 +36,8 @@ RSpec.describe Task, type: :model do
     specify(:aggregate_failures) do
       is_expected.to validate_presence_of(:title)
       is_expected.to validate_length_of(:title).is_at_most(200)
+      is_expected.to validate_presence_of(:status) # check for extra validation
+      is_expected.to validate_presence_of(:priority) # check for extra validation
     end
 
     it 'requires a title' do
