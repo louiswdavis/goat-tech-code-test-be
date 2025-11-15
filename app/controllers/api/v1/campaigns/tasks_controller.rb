@@ -34,7 +34,7 @@ module Api
         end
 
         def create_params
-          params.require(:task).permit(:title, :priority)
+          params.require(:task).permit(:title, :priority, :created_by_id, :assigned_to_id)
         end
       end
     end
