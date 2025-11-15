@@ -9,11 +9,11 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :campaigns do
         scope module: :campaigns do
-          resources :tasks, only: [:index, :create]
+          resources :tasks, only: [:index, :new, :create]
         end
       end
 
-      resources :tasks, only: [:index, :show, :update, :destroy]
+      resources :tasks, only: [:index, :show, :edit, :update, :destroy]
       resources :users
     end
   end

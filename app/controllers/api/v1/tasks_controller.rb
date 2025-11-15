@@ -1,7 +1,7 @@
 module Api
   module V1
     class TasksController < ApplicationController
-      before_action :set_task, only: [:show, :update, :destroy]
+      before_action :set_task, only: [:show, :edit, :update, :destroy]
 
       # extra action for FE assement
       def index
@@ -9,12 +9,9 @@ module Api
                         .order(status: :desc, priority: :desc, due_date: :desc)
           
         tasks = tasks.map do |task| 
-          task.attributes.merge(
-            campaign_name: task.campaign.name,
-            created_by_name: task.created_by&.name,
-            assigned_to_name: task.assigned_to&.name,
-          )
+          task.attributes.merge(campaign_name: task.campaign.name, created_by_name: task.created_by&.name, assigned_to_name: task.assigned_to&.name)
         end
+
         render json: { tasks: tasks }
       end
 
@@ -22,9 +19,17 @@ module Api
         render json: { task: @task }
       end
 
+      def edit
+        task = @task.attributes.merge(created_by_name: @task.created_by&.name, assigned_to_name: @task.assigned_to&.name)
+
+        render json: { task: task, users: User.all }
+      end
+
       def update
         if @task.update(update_params)
-          render json: { task: @task }
+          task = @task.attributes.merge(created_by_name: @task.created_by&.name, assigned_to_name: @task.assigned_to&.name)
+
+          render json: { task: task }
         else
           render json: { errors: @task.errors }, status: :unprocessable_entity
         end
@@ -44,7 +49,7 @@ module Api
       end
 
       def update_params
-        params.require(:task).permit(:title, :description, :status, :priority, :due_date)
+        params.require(:task).permit(:title, :description, :status, :priority, :due_date, :created_by_id, :assigned_to_id)
       end
     end
   end
