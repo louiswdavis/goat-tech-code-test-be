@@ -5,7 +5,7 @@ module Api
 
       # extra action for FE assement
       def index
-        render json: { tasks: Task.all }
+        render json: { tasks: Task.all.order(status: :desc, priority: :desc, due_date: :desc) }
       end
 
       def show
@@ -34,7 +34,7 @@ module Api
       end
 
       def update_params
-        params.require(:task).permit(:status, :priority)
+        params.require(:task).permit(:title, :description, :status, :priority, :due_date) # TODO: decide if to include campaign_id
       end
     end
   end
