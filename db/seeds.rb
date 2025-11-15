@@ -49,7 +49,9 @@ Task.create!(
   status: "in_progress",
   priority: "high",
   due_date: Date.today + 7.days,
-  campaign: campaign1
+  campaign: campaign1,
+  created_by_id: 1,
+  assigned_to_id: 3,
 )
 
 Task.create!(
@@ -58,7 +60,8 @@ Task.create!(
   status: "todo",
   priority: "medium",
   due_date: Date.today + 14.days,
-  campaign: campaign1
+  campaign: campaign1,
+  created_by_id: 2,
 )
 
 Task.create!(
@@ -67,7 +70,9 @@ Task.create!(
   status: "todo",
   priority: "high",
   due_date: Date.today + 10.days,
-  campaign: campaign1
+  campaign: campaign1,
+  created_by_id: 1,
+  assigned_to_id: 1,
 )
 
 # Tasks for FICSIT campaign
@@ -77,7 +82,9 @@ Task.create!(
   status: "in_progress",
   priority: "medium",
   due_date: Date.today + 20.days,
-  campaign: campaign2
+  campaign: campaign2,
+  created_by_id: 2,
+  assigned_to_id: 2,
 )
 
 Task.create!(
@@ -86,7 +93,8 @@ Task.create!(
   status: "todo",
   priority: "low",
   due_date: Date.today + 30.days,
-  campaign: campaign2
+  campaign: campaign2,
+  created_by_id: 2,
 )
 
 Task.create!(
@@ -95,7 +103,9 @@ Task.create!(
   status: "todo",
   priority: "medium",
   due_date: Date.today + 25.days,
-  campaign: campaign2
+  campaign: campaign2,
+  created_by_id: 2,
+  assigned_to_id: 3,
 )
 
 # Tasks for Hyperion campaign
@@ -105,7 +115,9 @@ Task.create!(
   status: "done",
   priority: "high",
   due_date: Date.today - 5.days,
-  campaign: campaign3
+  campaign: campaign3,
+  created_by_id: 1,
+  assigned_to_id: 1,
 )
 
 Task.create!(
@@ -114,7 +126,9 @@ Task.create!(
   status: "done",
   priority: "medium",
   due_date: Date.today - 10.days,
-  campaign: campaign3
+  campaign: campaign3,
+  created_by_id: 3,
+  assigned_to_id: 2,
 )
 
 Task.create!(
@@ -123,7 +137,8 @@ Task.create!(
   status: "in_progress",
   priority: "low",
   due_date: Date.today + 2.days,
-  campaign: campaign3
+  campaign: campaign3,
+  created_by_id: 3,
 )
 
 puts "\n✅ Seed data created successfully!"
