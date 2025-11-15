@@ -2,19 +2,28 @@
 #
 # Table name: tasks
 #
-#  id          :bigint           not null, primary key
-#  description :text
-#  due_date    :datetime
-#  priority    :integer          default("medium"), not null
-#  status      :integer          default("todo"), not null
-#  title       :string           not null
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  campaign_id :bigint
+#  id             :bigint           not null, primary key
+#  description    :text
+#  due_date       :datetime
+#  priority       :integer          default("medium"), not null
+#  status         :integer          default("todo"), not null
+#  title          :string           not null
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  assigned_to_id :bigint
+#  campaign_id    :bigint
+#  created_by_id  :bigint
 #
 # Indexes
 #
-#  index_tasks_on_campaign_id  (campaign_id)
+#  index_tasks_on_assigned_to_id  (assigned_to_id)
+#  index_tasks_on_campaign_id     (campaign_id)
+#  index_tasks_on_created_by_id   (created_by_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (assigned_to_id => users.id)
+#  fk_rails_...  (created_by_id => users.id)
 #
 require 'rails_helper'
 
@@ -84,7 +93,7 @@ RSpec.describe Task, type: :model do
   describe 'associations' do
     # my own check
     specify(:aggregate_failures) do
-      is_expected.to belong_to(:campaign).counter_cache(true)
+      is_expected.to belong_to(:campaign).counter_cache(:task_count)
     end
 
     it 'belongs to campaign' do
@@ -93,14 +102,14 @@ RSpec.describe Task, type: :model do
     end
 
     # BONUS: User relationship tests
-    xit 'belongs to created_by user' do
+    it 'belongs to created_by user' do
       association = Task.reflect_on_association(:created_by)
       expect(association.macro).to eq(:belongs_to)
       expect(association.options[:class_name]).to eq('User')
       expect(association.options[:optional]).to be true
     end
 
-    xit 'belongs to assigned_to user' do
+    it 'belongs to assigned_to user' do
       association = Task.reflect_on_association(:assigned_to)
       expect(association.macro).to eq(:belongs_to)
       expect(association.options[:class_name]).to eq('User')

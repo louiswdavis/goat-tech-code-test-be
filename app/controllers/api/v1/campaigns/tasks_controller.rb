@@ -12,7 +12,7 @@ module Api
                     @campaign.tasks
                   end
 
-          render json: { tasks: tasks.order(status: :desc, priority: :desc, due_date: :desc) }
+          render json: { tasks: tasks }
         end
 
         def create
@@ -34,7 +34,7 @@ module Api
         end
 
         def create_params
-          params.require(:task).permit(:title, :description, :status, :priority, :due_date)
+          params.require(:task).permit(:title, :priority, :created_by_id, :assigned_to_id)
         end
       end
     end

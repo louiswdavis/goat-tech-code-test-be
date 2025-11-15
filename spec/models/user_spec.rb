@@ -50,7 +50,7 @@ RSpec.describe User, type: :model do
   end
 
   describe 'associations' do
-    xit 'has many created_tasks' do
+    it 'has many created_tasks' do
       skip "Task model not yet created" unless defined?(Task)
       association = User.reflect_on_association(:created_tasks)
       expect(association.macro).to eq(:has_many)
@@ -58,7 +58,7 @@ RSpec.describe User, type: :model do
       expect(association.options[:foreign_key]).to eq('created_by_id')
     end
 
-    xit 'has many assigned_tasks' do
+    it 'has many assigned_tasks' do
       skip "Task model not yet created" unless defined?(Task)
       association = User.reflect_on_association(:assigned_tasks)
       expect(association.macro).to eq(:has_many)
