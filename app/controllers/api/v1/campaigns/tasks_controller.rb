@@ -12,13 +12,26 @@ module Api
                     @campaign.tasks
                   end
 
+          tasks = tasks.includes(:created_by, :assigned_to)
+                       .order(status: :desc, priority: :desc, due_date: :desc)
+          
+          tasks = tasks.map do |task|
+            task.attributes.merge(created_by_name: task.created_by&.name, assigned_to_name: task.assigned_to&.name)
+          end
+
           render json: { tasks: tasks }
+        end
+
+        def new
+          render json: { task: @campaign.tasks.build, users: User.all }
         end
 
         def create
           task = @campaign.tasks.build(create_params)
 
           if task.save
+            task = task.attributes.merge(created_by_name: task.created_by&.name, assigned_to_name: task.assigned_to&.name)
+
             render json: { task: task }, status: :created
           else
             render json: { errors: task.errors }, status: :unprocessable_entity
@@ -34,7 +47,7 @@ module Api
         end
 
         def create_params
-          params.require(:task).permit(:title, :priority, :created_by_id, :assigned_to_id)
+          params.require(:task).permit(:title, :description, :priority, :status, :due_date, :created_by_id, :assigned_to_id)
         end
       end
     end
