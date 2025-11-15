@@ -27,7 +27,7 @@ module Api
 
       def update
         if @task.update(update_params)
-          task = @task.attributes.merge(created_by_name: @task.created_by&.name, assigned_to_name: @task.assigned_to&.name)
+          task = @task.attributes.merge(campaign_name: @task.campaign.name, created_by_name: @task.created_by&.name, assigned_to_name: @task.assigned_to&.name)
 
           render json: { task: task }
         else
